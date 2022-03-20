@@ -1,0 +1,16 @@
+apiVersion: sriovnetwork.openshift.io/v1
+kind: SriovNetworkNodePolicy
+metadata:
+  name: example-sriov-node-policy-legacy
+  namespace: openshift-sriov-network-operator
+spec:
+  resourceName: sriovlegacy
+  nodeSelector:
+    feature.node.kubernetes.io/network-sriov.capable: "true"
+  numVfs: 8
+  nicSelector:
+    vendor: "15b3"
+    # you can also specify deviceID from the list: "158b", "1015", "1017"
+    # deviceID: "158b"
+  isRdma: true
+  eSwitchMode: legacy

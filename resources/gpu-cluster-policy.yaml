@@ -1,0 +1,47 @@
+apiVersion: nvidia.com/v1
+kind: ClusterPolicy
+metadata:
+  name: gpu-cluster-policy
+spec:
+  daemonsets: {}
+  dcgm:
+    enabled: true
+  dcgmExporter:
+    config:
+      name: ""
+  devicePlugin: {}
+  driver:
+    certConfig:
+      name: ""
+    enabled: true
+    kernelModuleConfig:
+      name: ""
+    licensingConfig:
+      configMapName: ""
+      nlsEnabled: false
+    rdma:
+      enabled: true
+      useHostMofed: false
+    repoConfig:
+      configMapName: ""
+    use_ocp_driver_toolkit: true
+    virtualTopology:
+      config: ""
+  gfd: {}
+  mig:
+    strategy: single
+  migManager:
+    enabled: true
+  nodeStatusExporter:
+    enabled: true
+  operator:
+    defaultRuntime: crio
+    initContainer: {}
+    runtimeClass: nvidia
+  toolkit:
+    enabled: true
+  validator:
+    plugin:
+      env:
+      - name: WITH_WORKLOAD
+        value: "true"
