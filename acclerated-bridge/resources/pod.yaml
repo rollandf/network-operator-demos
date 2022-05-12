@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test-bridge-pod-1
+  annotations:
+    k8s.v1.cni.cncf.io/networks: accel-sriov-net1
+spec:
+  containers:
+    - name: test-sriov-pod
+      image: centos/tools
+      imagePullPolicy: IfNotPresent
+      command: [ "/bin/bash", "-c", "--" ]
+      args: [ "while true; do sleep 300; done;" ]
+      securityContext:
+        capabilities:
+          add: [ "IPC_LOCK" ]
+      resources:
+        requests:
+          nvidia.com/sriovswitchdev: "1"
+        limits:
+          nvidia.com/sriovswitchdev: "1"
+  nodeSelector:
+    # Note: Replace hostname or remove selector altogether
+    kubernetes.io/hostname: cloud-dev-11

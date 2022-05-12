@@ -1,0 +1,19 @@
+apiVersion: nmstate.io/v1
+kind: NodeNetworkConfigurationPolicy
+metadata:
+  name: acclerated-bridge
+spec:
+  nodeSelector:
+    kubernetes.io/hostname: cloud-dev-11
+  desiredState:
+    interfaces:
+      - name: accelbr
+        description: Linux bridge for SRIOV switchdev acclerated bridge
+        type: linux-bridge
+        state: absent
+        bridge:
+          options:
+            stp:
+              enabled: false
+          port:
+            - name: ens3f0np0

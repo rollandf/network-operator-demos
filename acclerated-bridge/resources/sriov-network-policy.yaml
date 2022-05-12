@@ -1,0 +1,17 @@
+apiVersion: sriovnetwork.openshift.io/v1
+kind: SriovNetworkNodePolicy
+metadata:
+  name: sriov-node-policy-switchdev
+  namespace: network-operator
+spec:
+  resourceName: sriovswitchdev
+  nodeSelector:
+    node-role.kubernetes.io/worker: ""
+  numVfs: 5
+  nicSelector:
+    vendor: "15b3"
+    deviceID: "101d"
+  isRdma: true
+  # To get switchdev mode working you need to
+  # manually configure https://github.com/kubevirt/ovs-cni
+  eSwitchMode: switchdev

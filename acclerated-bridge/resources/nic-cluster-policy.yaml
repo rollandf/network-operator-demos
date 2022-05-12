@@ -1,0 +1,15 @@
+apiVersion: mellanox.com/v1alpha1
+kind: NicClusterPolicy
+metadata:
+  name: nic-cluster-policy
+spec:
+  secondaryNetwork:
+    multus:
+      image: multus
+      repository: nfvpe
+      version: v3.6
+      config: ''
+    ipamPlugin:
+      image: whereabouts
+      repository: mellanox
+      version: v0.3

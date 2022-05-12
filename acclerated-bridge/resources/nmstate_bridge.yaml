@@ -1,0 +1,190 @@
+apiVersion: nmstate.io/v1
+kind: NodeNetworkConfigurationPolicy
+metadata:
+  name: acclerated-bridge
+spec:
+  nodeSelector:
+    kubernetes.io/hostname: cloud-dev-11
+  desiredState:
+    interfaces:
+      - name: accelbr
+        type: linux-bridge
+        state: up
+        description: Linux bridge for SRIOV switchdev acclerated bridge2
+        accept-all-mac-addresses: false
+        bridge:
+          options:
+            gc-timer: 11110
+            group-addr: 01:80:C2:00:00:00
+            group-forward-mask: 0
+            hash-max: 4096
+            hello-timer: 0
+            mac-ageing-time: 300
+            multicast-last-member-count: 2
+            multicast-last-member-interval: 100
+            multicast-querier: false
+            multicast-querier-interval: 25500
+            multicast-query-interval: 12500
+            multicast-query-response-interval: 1000
+            multicast-query-use-ifaddr: false
+            multicast-router: 1
+            multicast-snooping: true
+            multicast-startup-query-count: 2
+            multicast-startup-query-interval: 3125
+            stp:
+              enabled: false
+              forward-delay: 15
+              hello-time: 2
+              max-age: 20
+              priority: 32768
+          port:
+          - name: ens3f0np0
+            stp-hairpin-mode: false
+            stp-path-cost: 100
+            stp-priority: 32
+        ethtool:
+          feature:
+            highdma: true
+            rx-gro: true
+            rx-gro-list: false
+            rx-udp-gro-forwarding: false
+            tx-checksum-ip-generic: true
+            tx-esp-segmentation: true
+            tx-fcoe-segmentation: false
+            tx-generic-segmentation: true
+            tx-gre-csum-segmentation: true
+            tx-gre-segmentation: true
+            tx-gso-list: false
+            tx-gso-partial: true
+            tx-gso-robust: false
+            tx-ipxip4-segmentation: true
+            tx-ipxip6-segmentation: true
+            tx-nocache-copy: false
+            tx-scatter-gather-fraglist: false
+            tx-sctp-segmentation: false
+            tx-tcp-ecn-segmentation: true
+            tx-tcp-mangleid-segmentation: true
+            tx-tcp-segmentation: true
+            tx-tcp6-segmentation: true
+            tx-tunnel-remcsum-segmentation: true
+            tx-udp-segmentation: true
+            tx-udp_tnl-csum-segmentation: true
+            tx-udp_tnl-segmentation: true
+            tx-vlan-hw-insert: true
+            tx-vlan-stag-hw-insert: true
+        ipv4:
+          enabled: false
+          address: []
+        ipv6:
+          enabled: true
+          address:
+          - ip: fe80::63f:72ff:feb2:c088
+            prefix-length: 64
+        mac-address: 04:3F:72:B2:C0:88
+        mtu: 1500
+      - name: ens3f0np0
+        type: ethernet
+        state: up
+        accept-all-mac-addresses: false
+        ethernet:
+          auto-negotiation: true
+          duplex: full
+          speed: 100000
+          sr-iov:
+            total-vfs: 5
+            vfs:
+            - id: 0
+              mac-address: 00:00:00:00:00:00
+              max-tx-rate: 0
+              min-tx-rate: 0
+              spoof-check: false
+              trust: false
+              qos: 0
+              vlan-id: 0
+            - id: 1
+              mac-address: 00:00:00:00:00:00
+              max-tx-rate: 0
+              min-tx-rate: 0
+              spoof-check: false
+              trust: false
+              qos: 0
+              vlan-id: 0
+            - id: 2
+              mac-address: 00:00:00:00:00:00
+              max-tx-rate: 0
+              min-tx-rate: 0
+              spoof-check: false
+              trust: false
+              qos: 0
+              vlan-id: 0
+            - id: 3
+              mac-address: 00:00:00:00:00:00
+              max-tx-rate: 0
+              min-tx-rate: 0
+              spoof-check: false
+              trust: false
+              qos: 0
+              vlan-id: 0
+            - id: 4
+              mac-address: 00:00:00:00:00:00
+              max-tx-rate: 0
+              min-tx-rate: 0
+              spoof-check: false
+              trust: false
+              qos: 0
+              vlan-id: 0
+        ethtool:
+          coalesce:
+            adaptive-rx: true
+            adaptive-tx: false
+            rx-frames: 128
+            rx-usecs: 8
+            tx-frames: 32
+            tx-usecs: 16
+          feature:
+            hw-tc-offload: true
+            rx-all: true
+            rx-checksum: true
+            rx-fcs: false
+            rx-gro: true
+            rx-gro-list: false
+            rx-hashing: true
+            rx-lro: false
+            rx-ntuple-filter: false
+            rx-udp-gro-forwarding: false
+            rx-udp_tunnel-port-offload: true
+            rx-vlan-filter: true
+            rx-vlan-hw-parse: false
+            tx-checksum-ip-generic: true
+            tx-generic-segmentation: true
+            tx-gre-csum-segmentation: true
+            tx-gre-segmentation: true
+            tx-gso-partial: true
+            tx-ipxip4-segmentation: true
+            tx-ipxip6-segmentation: true
+            tx-nocache-copy: false
+            tx-tcp-mangleid-segmentation: false
+            tx-tcp-segmentation: true
+            tx-tcp6-segmentation: true
+            tx-udp-segmentation: true
+            tx-udp_tnl-csum-segmentation: true
+            tx-udp_tnl-segmentation: true
+            tx-vlan-hw-insert: true
+            tx-vlan-stag-hw-insert: true
+          pause:
+            autoneg: false
+            rx: true
+            tx: true
+          ring:
+            rx: 1024
+            tx: 1024
+        ipv4:
+          enabled: false
+          address: []
+        ipv6:
+          enabled: false
+          address: []
+        lldp:
+          enabled: false
+        mac-address: 04:3F:72:B2:C0:88
+        mtu: 1500
