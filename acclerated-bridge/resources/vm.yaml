@@ -1,0 +1,54 @@
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+metadata:
+  name: testvm
+spec:
+  running: false
+  template:
+    metadata:
+      labels:
+        kubevirt.io/size: small
+        kubevirt.io/domain: testvm
+    spec:
+      domain:
+        devices:
+          disks:
+            - name: containerdisk
+              disk:
+                bus: virtio
+            - name: cloudinitdisk
+              disk:
+                bus: virtio
+          interfaces:
+          - name: default
+            masquerade: {}
+          - name: accel-sriov-net1
+            sriov: {}
+        resources:
+          requests:
+            memory: 1Gi
+      networks:
+      - name: default
+        pod: {}
+      - multus:
+          networkName: default/accel-sriov-net1
+        name: accel-sriov-net1
+      volumes:
+        - name: containerdisk
+          containerDisk:
+            image: quay.io/containerdisks/centos:7-2009
+        - name: cloudinitdisk
+          cloudInitNoCloud:
+            networkData: |
+              version: 2
+              ethernets:
+                eth1:
+                  mtu: 2000
+                  addresses: [ 10.200.0.1/24 ]
+            userData: |-
+              #cloud-config
+              users:
+                - name: admin
+                  sudo: ALL=(ALL) NOPASSWD:ALL
+                  ssh_authorized_keys:
+                    - ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAw/qtG3Txb9colQL3GskM22iFGdqxWRKuKrP2A9bnZ8/Vy6bscqr1Y8AybQPufPLtOzibWrajXA5rGisrqmyws8sB6xmXuYNq0cTSJPGD9YDz0HCmzmPb/43/JFcqKXo/cppZvgx7braqo8C7iVkjDAg4o+z3Sv1jd/g5mdh3Sjt82WIPB+uN4J5BfBADv2JvfdPGTghUqXVxkH0E+IASPc64unCY4ia3aImUY12tQq0oT2a2WNktOcR65gK8qTcqxODty0BCeGQrWrD4yN0Prk0gFzGGqRQzFOKQU6Tr6Lot0vRgWW8bDZf2bNxBMa+21DK8kDh7A24yfLFC68sahw== root
