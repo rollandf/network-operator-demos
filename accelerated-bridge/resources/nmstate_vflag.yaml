@@ -1,7 +1,7 @@
 apiVersion: nmstate.io/v1
 kind: NodeNetworkConfigurationPolicy
 metadata:
-  name: acclerated-bridge
+  name: accelerated-bridge
 spec:
   nodeSelector:
     kubernetes.io/hostname: cloud-dev-11

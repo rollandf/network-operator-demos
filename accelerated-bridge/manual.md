@@ -1,4 +1,4 @@
-# Acclerated Bridge CNI
+# Accelerated Bridge CNI
 
 https://wikinox.mellanox.com/pages/viewpage.action?spaceKey=SW&title=Accelerated+Linux+Bridge+Demo+manuals
 

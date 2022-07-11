@@ -174,7 +174,7 @@ kubectl apply -f https://raw.githubusercontent.com/k8snetworkplumbingwg/sriov-ne
 kubectl get nodes cloud-dev-11 -o json | jq .status.allocatable
 
 
-## Acclerated bridge CNI
+## Accelerated bridge CNI
 
 DS will deploy CNI binary to /opt/cni/bin/
 

@@ -3,6 +3,6 @@
 
 - [Network Operator on OpenShift](./openshift/network-operator-openshift.md)
 
-## Acclerated Bridge
+## Accelerated Bridge
 
-- [Manual steps](./acclerated-bridge/manual.md)
+- [Manual steps](./accelerated-bridge/manual.md)

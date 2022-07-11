@@ -1,7 +1,7 @@
 apiVersion: nmstate.io/v1
 kind: NodeNetworkConfigurationPolicy
 metadata:
-  name: acclerated-bridge
+  name: accelerated-bridge
 spec:
   nodeSelector:
     kubernetes.io/hostname: cloud-dev-11
@@ -10,7 +10,7 @@ spec:
       - name: accelbr
         type: linux-bridge
         state: up
-        description: Linux bridge for SRIOV switchdev acclerated bridge2
+        description: Linux bridge for SRIOV switchdev accelerated bridge2
         accept-all-mac-addresses: false
         bridge:
           options:
