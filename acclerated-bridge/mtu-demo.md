@@ -292,6 +292,7 @@ ip link set ens3f0np0 master accelbr
 ip link set accelbr up
 ```
 
+Restart Device Plugin if needed.
 
 ## KubeVirt
 
