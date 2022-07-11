@@ -344,14 +344,16 @@ sudo lshw -c network -businfo
 
 `ping` between the pods on the secondary network IPs to verify connectivity.
 
-```ping 192.168.3.225 -I net1 -c 10 -M do -s 1952```
+```
+ping 192.168.3.225 -I eth1 -c 10 -M do -s 1972
+```
 
 `-I net1` Use specific interface
 `-M do`   Prohibit fragmentation
 `-c 10`   Count of pings
-`-s 1952` Size of frame
+`-s 1972` Size of frame
 
-`1952`:  2000 MTU -28 minus 40 bytes IPV6 header and 8 bytes for the ICMP header
+`1972`:  2000 MTU -28 minus 20 bytes IPV4 header and 8 bytes for the ICMP header
 
 
 Delete VMs and check that MTU is restored.
