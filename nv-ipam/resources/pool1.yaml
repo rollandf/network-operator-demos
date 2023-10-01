@@ -1,0 +1,34 @@
+apiVersion: nv-ipam.nvidia.com/v1alpha1
+kind: IPPool
+metadata:
+  creationTimestamp: "2023-10-01T09:59:23Z"
+  generation: 1
+  name: pool1
+  namespace: network-operator
+  resourceVersion: "7376"
+  uid: a1745ec4-b75f-4b5c-8111-97b7d33657a1
+spec:
+  gateway: 192.168.0.1
+  nodeSelector:
+    nodeSelectorTerms:
+    - matchExpressions:
+      - key: kubernetes.io/os
+        operator: In
+        values:
+        - linux
+  perNodeBlockSize: 100
+  subnet: 192.168.0.0/16
+status:
+  allocations:
+  - endIP: 192.168.0.200
+    nodeName: host-a
+    startIP: 192.168.0.101
+  - endIP: 192.168.0.100
+    nodeName: host-b
+    startIP: 192.168.0.1
+  - endIP: 192.168.1.144
+    nodeName: host-c
+    startIP: 192.168.1.45
+  - endIP: 192.168.1.44
+    nodeName: k8s-master
+    startIP: 192.168.0.201
