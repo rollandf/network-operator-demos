@@ -1,0 +1,33 @@
+name: Find Tag Branch
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  find-branch:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0 # Fetch all history for tags and branches
+
+    - name: Find branch for the tag
+      run: |
+        echo "Fetching all branches to analyze..."
+        git fetch origin --prune
+        TAG_NAME=${GITHUB_REF#refs/tags/}
+        echo "Tag name: $TAG_NAME"
+        
+        echo "Finding branches containing the tag..."
+        BRANCHES=$(git branch -r --contains tags/$TAG_NAME | sed 's|origin/||' | tr '\n' ' ')
+        
+        if [ -z "$BRANCHES" ]; then
+          echo "No branches contain the tag $TAG_NAME"
+        else
+          echo "Branches containing the tag $TAG_NAME: $BRANCHES"
+        fi
+      shell: bash
